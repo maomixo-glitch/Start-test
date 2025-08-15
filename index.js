@@ -62,18 +62,16 @@ function buildFortune() {
   const color = rand(FORTUNE.colors);
   const item  = rand(FORTUNE.items);
   const stars = '★'.repeat(star) + '☆'.repeat(5 - star);
-  const areaMsgs = FORTUNE.areas.map(function(a) {
-    return '【' + a + '】' + rand(FORTUNE.advises);
+
+  const areaMsgs = FORTUNE.areas.map(function (a) {
+    return '[' + a + '] ' + rand(FORTUNE.advises);
   });
+
   let text = '';
-  text += '今日你是「' + arche + '運勢」' + '
-';
-  text += '幸運指數：' + stars + '
-';
-  text += areaMsgs.join('
-') + '
-';
-  text += '幸運色：' + color + '｜幸運物：' + item;
+  text += '今日運勢類型: ' + arche + '\n';
+  text += '幸運指數: ' + stars + '\n';
+  text += areaMsgs.join('\n') + '\n';
+  text += '幸運色: ' + color + ' | 幸運物: ' + item;
   return text;
 }
 
@@ -243,10 +241,9 @@ async function handlePostback(event) {
     return client.replyMessage(event.replyToken, { type: 'text', text: '這題走丟了，輸入 /測驗 換一題吧！', quickReply: qrBase() });
   }
 
-  const msg = '【心理測驗結果】' + q.title + '
-你的選擇：' + chosen.label + '
-——
-' + chosen.result;
+  // 原本：... '\n——\n' ...
+const msg = '【心理測驗結果】' + q.title + '\n你的選擇：' + chosen.label + '\n--\n' + chosen.result;
+
   return client.replyMessage(event.replyToken, { type: 'text', text: msg, quickReply: qrBase() });
 }
 

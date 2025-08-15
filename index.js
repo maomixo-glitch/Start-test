@@ -202,23 +202,23 @@ async function handleText(event) {
 
   if (text === '/運勢' || lower === 'fortune') {
     const result = buildFortune();
-    return client.replyMessage(event.replyToken, { type: 'text', text: result, quickReply: qrBase() });
+    return client.replyMessage(event.replyToken, { type: 'text', text: result });
   }
 
   if (text === '/測驗' || lower === 'quiz') {
     const q = rand(QUIZ);
     const body = '[心理測驗] ' + q.title + '\n' + q.question;
-    return client.replyMessage(event.replyToken, { type: 'text', text: body, quickReply: qrForQuiz(q) });
+    return client.replyMessage(event.replyToken, { type: 'text', text: body});
   }
 
   if (text === '/吃什麼' || lower === 'eat') {
     const msg = buildEatSuggestion();
-    return client.replyMessage(event.replyToken, { type: 'text', text: msg, quickReply: qrBase() });
+    return client.replyMessage(event.replyToken, { type: 'text', text: msg });
   }
 
   if (text === '/help' || text === '幫助') {
     const help = '指令:\n/運勢 -> 抽今日運勢\n/測驗 -> 玩心理測驗\n/吃什麼 -> 今天吃什麼建議\n/help -> 看說明';
-    return client.replyMessage(event.replyToken, { type: 'text', text: help, quickReply: qrBase() });
+    return client.replyMessage(event.replyToken, { type: 'text', text: help });
   }
 
   // 非指令: 不回覆

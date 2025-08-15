@@ -69,14 +69,16 @@ function buildFortune() {
   const item = rand(FORTUNE.items)
   const emoji = rand(FORTUNE.emoji)
   const stars = '★'.repeat(star) + '☆'.repeat(5 - star)
-  const text = [
-    `${emoji} 今日你是「${arche}運勢」`,
-    `幸運指數：${stars}`,
-    ...areaMsgs,
-    `幸運色：${color}｜幸運物：${item}`
-  ].join('
+
+  // 用陣列逐行組字串，避免某些環境遇到 ArrayLiteral.join 的解析怪問題
+  const lines = []
+  lines.push(`${emoji} 今日你是「${arche}運勢」`)
+  lines.push(`幸運指數：${stars}`)
+  areaMsgs.forEach(m => lines.push(m))
+  lines.push(`幸運色：${color}｜幸運物：${item}`)
+
+  return lines.join('
 ')
-  return text
 }
 
 // === 心理測驗題庫（文字版） ===

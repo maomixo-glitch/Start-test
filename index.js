@@ -241,8 +241,7 @@ async function handlePostback(event) {
     return client.replyMessage(event.replyToken, { type: 'text', text: '這題走丟了，輸入 /測驗 換一題吧！', quickReply: qrBase() });
   }
 
-  // 原本：... '\n——\n' ...
-const msg = '【心理測驗結果】' + q.title + '\n你的選擇：' + chosen.label + '\n--\n' + chosen.result;
+const msg = '[心理測驗結果] ' + q.title + '\n你的選擇：' + chosen.label + '\n--\n' + chosen.result;
 
   return client.replyMessage(event.replyToken, { type: 'text', text: msg, quickReply: qrBase() });
 }

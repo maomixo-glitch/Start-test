@@ -265,14 +265,25 @@ async function handleText(event) {
     ])
   }
 
-  // 非指令：禮貌回覆（帶 quick reply）
-  return client.replyMessage(event.replyToken, {
-    type: 'text',
-    text: '想玩點什麼？輸入 /運勢 或 /測驗 吧！',
-    quickReply: quick
-  })
+if (text === '/運勢' || lower === 'fortune') {
+  const f = buildFortune()
+  return client.replyMessage(event.replyToken, fortuneFlex(f))
 }
 
+if (text === '/測驗' || lower === 'quiz') {
+  const q = randomPick(quizBank)
+  return client.replyMessage(event.replyToken, quizFlex(q))
+}
+
+if (text === '/help' || text === '幫助') {
+  return client.replyMessage(event.replyToken, [
+    { type: 'text', text: '嗨，我是群組小占卜！\n指令：\n/運勢 → 抽今日運勢\n/測驗 → 玩心理測驗\n/help → 看說明', quickReply: quick }
+  ])
+}
+
+// 非指令：不回覆
+return Promise.resolve()
+  
 async function handlePostback(event) {
   // 解析 postback data: quiz=qid&opt=A
   const data = Object.fromEntries(new URLSearchParams(event.postback.data))
